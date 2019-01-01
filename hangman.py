@@ -171,7 +171,7 @@ def hangman(secret_word):
 
         else:
             print "Oops! That letter is not in my word: " + get_guessed_word(secret_word, letters_guessed)
-            print IMAGES[8-total_lives]
+            print IMAGES[images_selection_list_indices][8-total_lives]
             print "Remaining Lives : ", total_lives
             print ""
             total_lives -= 1
