@@ -16,11 +16,11 @@ def get_hint(secret_word,letters_guessed):
     return random.choice(letter_not_guessed)
 
 
-def ifValid(letter):
-    if len(letter) != 1:
+def ifValid(user_input):
+    if len(user_input) != 1:
         return False
 
-    if not letter.isalpha():
+    if not user_input.isalpha():
         return False
 
     # True humne tab hi return kiya hai jab
@@ -102,7 +102,8 @@ def hangman(secret_word):
     remaining_live=8
     choice_choose_img=[0,1,2,3,4,5,6,7]
 
-    level=raw_input("Aap abhi kitni difficulty par yeh game khelna chahte ho?\na)\tEasy\nb)\tMedium\nc)\tHard\n\nApni choice a, b, ya c ki terms mei batayein\n")
+    print "App game ko kis level par khelna chahte hai?\n(a)\n(b)\n(c)"
+    level=raw_input("Enter your choice for level(a,b or c) ")
     if level=="b":
         total_live=remaining_live=6
         choice_choose_img=[1,2,3,4,6,7]
@@ -114,6 +115,7 @@ def hangman(secret_word):
             print "Apne wrong level choose kiya hai.\nGame basic level se start ho raha hai__"
     letters_guessed = []
 
+    hints=2
 
     while(remaining_live>0):
         available_letters = get_available_letters(letters_guessed)
@@ -121,10 +123,16 @@ def hangman(secret_word):
 
         guess = raw_input("Please guess a letter: ")
         letter = guess.lower()
-        if letter == 'hint':
-            print "Your hint for next word is "+get_hint(secret_word,letters_guessed)
-        if ifValid(letter)==False:
+        
+        if not ifValid(letter) and letter != "hint":
             print "invalid input"
+            continue
+        if letter == 'hint' and hints>0:
+            print "Your hint for next word is "+get_hint(secret_word,letters_guessed)
+            hints-=1
+            continue
+        elif letter == 'hint' and hints==0:
+            print "you already used your all hints for this word"
             continue
         if letter in secret_word:
             letters_guessed.append(letter)
@@ -135,14 +143,14 @@ def hangman(secret_word):
                 print " * * Congratulations, you won! * * "
                 print ""
                 break
+
         else:
             print "Oops! That letter is not in my word: " + get_guessed_word(secret_word, letters_guessed)
             letters_guessed.append(letter)
             print ""
             print IMAGES[choice_choose_img[total_live-remaining_live]]
             remaining_live-=1
-    else:
-        print "Sorry, you ran out of guesses. The word was " + str(secret_word) + "."
+    print "sorry you lose the game, the word was - "+secret_word
 # Load the list of words into the variable wordlist
 # So that it can be accessed from anywhere in the program
 secret_word = choose_word()
