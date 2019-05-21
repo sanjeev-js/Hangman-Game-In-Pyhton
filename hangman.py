@@ -153,5 +153,5 @@ def hangman(secret_word):
     print "sorry you lose the game, the word was - "+secret_word
 # Load the list of words into the variable wordlist
 # So that it can be accessed from anywhere in the program
-secret_word = choose_word()
+secret_word = choose_word
 hangman(secret_word)
