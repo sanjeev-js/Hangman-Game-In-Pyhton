@@ -57,7 +57,7 @@ def get_guessed_word(secret_word, letters_guessed):
         else:
             guessed_word += "_"
         index += 1
-    
+
     return guessed_word
 
 
@@ -123,7 +123,7 @@ def hangman(secret_word):
 
         guess = raw_input("Please guess a letter: ")
         letter = guess.lower()
-        
+
         if not ifValid(letter) and letter != "hint":
             print "invalid input"
             continue
@@ -150,8 +150,8 @@ def hangman(secret_word):
             print ""
             print IMAGES[choice_choose_img[total_live-remaining_live]]
             remaining_live-=1
-    print "sorry you lose the game, the word was - "+secret_word
+        print "sorry you lose the game, the word was - "+secret_word
 # Load the list of words into the variable wordlist
 # So that it can be accessed from anywhere in the program
-secret_word = choose_word
+secret_word = choose_word()
 hangman(secret_word)
